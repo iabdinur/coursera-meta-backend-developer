@@ -5,11 +5,19 @@ class Category(models.Model):
     sloug = models.SlugField()
     title = models.CharField(max_length=255)
 
+    def __str__(self)-> str:
+        return self.title
+
+
 class MenuItem(models.Model):
     title = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     inventory = models.SmallIntegerField()
     category = models.ForeignKey(Category, on_delete=models.PROTECT, default=1)
+
+    def __str__(self)-> str:
+        return self.title
+
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -37,3 +45,6 @@ class OrderItem(models.Model):
 
     class Meta:
         unique_together = ("order", "menuitem")
+
+    def __str__(self)-> str:
+        return self.title

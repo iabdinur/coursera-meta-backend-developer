@@ -17,12 +17,6 @@ class CategoriesView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-    def get_permissions(self):
-        permission_classes = []
-        if self.request.method != "GET":
-            permission_classes = [IsAuthenticated]
-
-        return [permission() for permission in permission_classes]
 
 
 class MenuItemsView(generics.ListCreateAPIView):
@@ -31,24 +25,10 @@ class MenuItemsView(generics.ListCreateAPIView):
     search_fields = ["category__title"]
     ordering_fields = ["price", "inventory"]
 
-    def get_permissions(self):
-        permission_classes = []
-        if self.request.method != "GET":
-            permission_classes = [IsAuthenticated]
-
-        return [permission() for permission in permission_classes]
-
 
 class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
-
-    def get_permissions(self):
-        permission_classes = []
-        if self.request.method != "GET":
-            permission_classes = [IsAuthenticated]
-
-        return [permission() for permission in permission_classes]
 
 
 class CartView(generics.ListCreateAPIView):
@@ -56,12 +36,7 @@ class CartView(generics.ListCreateAPIView):
     serializer_class = CartSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        return Cart.objects.all().filter(user=self.request.user)
-
-    def delete(self, request, *args, **kwargs):
-        Cart.objects.all().filter(user=self.request.user).delete()
-        return Response("ok")
+   
 
 
 class OrderView(generics.ListCreateAPIView):
