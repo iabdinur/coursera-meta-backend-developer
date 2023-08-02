@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from .models import Category, MenuItem, Cart, Order, OrderItem
-from .serializers import  CategorySerializer, MenuItemSerializer, CartSerializer, OrderSerializer, OrderItemSerializer
+from .serializers import  CategorySerializer, MenuItemSerializer, CartSerializer, OrderSerializer, OrderItemSerializer, UserSerializer
 from rest_framework.response import Response
 
 from rest_framework.permissions import IsAdminUser
@@ -119,7 +119,7 @@ class GroupViewSet(viewsets.ViewSet):
 
     def list(self, request):
         users = User.objects.all().filter(groups__name="Manager")
-        items = UserSerilializer(users, many=True)
+        items = UserSerializer(users, many=True)
         return Response(items.data)
 
     def create(self, request):
@@ -140,7 +140,7 @@ class DeliveryCrewViewSet(viewsets.ViewSet):
 
     def list(self, request):
         users = User.objects.all().filter(groups__name="Delivery Crew")
-        items = UserSerilializer(users, many=True)
+        items = UserSerializer(users, many=True)
         return Response(items.data)
 
     def create(self, request):
