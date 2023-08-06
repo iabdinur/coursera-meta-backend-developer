@@ -24,5 +24,5 @@ def form_view(request):
             return JsonResponse({
                 'message': 'success'
             })
-    return render(request, 'booking.html', {'form': form})
+    return render(request, 'menu_items.html', {'form': form})
     
